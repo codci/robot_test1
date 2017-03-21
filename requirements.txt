@@ -1,0 +1,10 @@
+robotframework
+robotframework-httplibrary
+requests
+robotframework-requests
+robotframework-databaselibrary
+robotframework-httplibrary
+robotframework-selenium2library
+jsonselect
+jsonschema
+jsonpath_rw
