@@ -1,86 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20170322 17:46:19.110" generator="Robot 3.0.2 (Python 2.7.11 on win32)">
+<robot generated="20170322 19:39:31.060" generator="Robot 3.0.2 (Python 2.7.11 on win32)">
 <suite source="C:\Users\d.sokol\PycharmProjects\robot_test\test.robot" id="s1" name="Test">
-<test id="s1-t1" name="Valid Stream">
-<kw name="Test request stream">
+<kw type="setup" name="Initialize header dictionary">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>test=qwe</arg>
+</arguments>
+<assign>
+<var>${HEADERS}</var>
+</assign>
+<msg timestamp="20170322 19:39:31.160" level="INFO">${HEADERS} = {u'test': u'qwe'}</msg>
+<status status="PASS" endtime="20170322 19:39:31.160" starttime="20170322 19:39:31.160"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${HEADERS}</arg>
+</arguments>
+<msg timestamp="20170322 19:39:31.160" level="INFO">${HEADERS} = {u'test': u'qwe'}</msg>
+<status status="PASS" endtime="20170322 19:39:31.160" starttime="20170322 19:39:31.160"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:31.160" starttime="20170322 19:39:31.160"></status>
+</kw>
+<test id="s1-t1" name="Test request stream">
 <kw name="Request Stream" library="RequestDemoLibrary">
 <doc>Send request to http://httpbin.org//stream/:count with auth params</doc>
 <arguments>
 <arg>${STREAMCOUNT}</arg>
 </arguments>
-<status status="PASS" endtime="20170322 17:46:19.880" starttime="20170322 17:46:19.550"></status>
+<status status="PASS" endtime="20170322 19:39:31.711" starttime="20170322 19:39:31.160"></status>
 </kw>
-<kw name="Status Code Should Be" library="RequestDemoLibrary">
+<kw name="Status Code Should Be">
 <arguments>
 <arg>${STATUSCODE}</arg>
 </arguments>
-<msg timestamp="20170322 17:46:19.880" level="FAIL">Actual Status code != Expected: 200 != 200</msg>
-<status status="FAIL" endtime="20170322 17:46:19.880" starttime="20170322 17:46:19.880"></status>
+<kw name="Get Response Status Code" library="RequestDemoLibrary">
+<doc>Get response status code</doc>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20170322 19:39:31.711" level="INFO">${status} = 200</msg>
+<status status="PASS" endtime="20170322 19:39:31.711" starttime="20170322 19:39:31.711"></status>
 </kw>
-<status status="FAIL" endtime="20170322 17:46:19.890" starttime="20170322 17:46:19.550"></status>
-</kw>
-<status status="FAIL" endtime="20170322 17:46:19.890" critical="yes" starttime="20170322 17:46:19.550">Actual Status code != Expected: 200 != 200</status>
-</test>
-<test id="s1-t2" name="Valid Auth">
-<kw name="Test request auth">
-<kw name="Request Auth" library="RequestDemoLibrary">
-<doc>Send request to http://httpbin.org/basic-auth/:user/:passwd with auth params</doc>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
 <arguments>
-<arg>${USERNAME}</arg>
-<arg>${PASSWORD}</arg>
+<arg>${status}</arg>
+<arg>${expected_response_code}</arg>
 </arguments>
-<status status="PASS" endtime="20170322 17:46:20.190" starttime="20170322 17:46:19.890"></status>
+<msg timestamp="20170322 19:39:31.711" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20170322 19:39:31.711" starttime="20170322 19:39:31.711"></status>
 </kw>
-<kw name="Status Code Should Be" library="RequestDemoLibrary">
+<status status="PASS" endtime="20170322 19:39:31.711" starttime="20170322 19:39:31.711"></status>
+</kw>
+<kw name="Number Of Lines Should Be">
 <arguments>
-<arg>${STATUSCODE}</arg>
+<arg>${STREAMCOUNT}</arg>
 </arguments>
-<msg timestamp="20170322 17:46:20.190" level="FAIL">Actual Status code != Expected: 200 != 200</msg>
-<status status="FAIL" endtime="20170322 17:46:20.190" starttime="20170322 17:46:20.190"></status>
+<kw name="Get Response Text" library="RequestDemoLibrary">
+<doc>Get response text</doc>
+<assign>
+<var>${responce text}</var>
+</assign>
+<msg timestamp="20170322 19:39:31.741" level="INFO">${responce text} = {"headers": {"Accept-Encoding": "gzip, deflate", "Total-Route-Time": "0", "User-Agent": "python-requests/2.13.0", "Accept": "*/*", "Connection": "close", "Host": "httpbin.org", "Connect-Time": "0", "V...</msg>
+<status status="PASS" endtime="20170322 19:39:31.741" starttime="20170322 19:39:31.721"></status>
 </kw>
-<status status="FAIL" endtime="20170322 17:46:20.190" starttime="20170322 17:46:19.890"></status>
+<kw name="Get Line Count" library="String">
+<doc>Returns and logs the number of lines in the given string.</doc>
+<arguments>
+<arg>${responce text}</arg>
+</arguments>
+<assign>
+<var>${stream_lines}</var>
+</assign>
+<msg timestamp="20170322 19:39:31.741" level="INFO">7 lines</msg>
+<msg timestamp="20170322 19:39:31.741" level="INFO">${stream_lines} = 7</msg>
+<status status="PASS" endtime="20170322 19:39:31.741" starttime="20170322 19:39:31.741"></status>
 </kw>
-<status status="FAIL" endtime="20170322 17:46:20.190" critical="yes" starttime="20170322 17:46:19.890">Actual Status code != Expected: 200 != 200</status>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${stream_lines}</arg>
+<arg>${expected_stream_lines}</arg>
+</arguments>
+<msg timestamp="20170322 19:39:31.741" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20170322 19:39:31.741" starttime="20170322 19:39:31.741"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:31.741" starttime="20170322 19:39:31.711"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:31.741" critical="yes" starttime="20170322 19:39:31.160"></status>
 </test>
-<test id="s1-t3" name="Valid Get">
-<kw name="Test request get">
+<test id="s1-t2" name="Test request get">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${HEADERS}</arg>
+</arguments>
+<msg timestamp="20170322 19:39:31.751" level="INFO">{u'test': u'qwe'}</msg>
+<status status="PASS" endtime="20170322 19:39:31.751" starttime="20170322 19:39:31.751"></status>
+</kw>
 <kw name="Request Get" library="RequestDemoLibrary">
-<doc>Send request to httpbin.org/get</doc>
-<status status="PASS" endtime="20170322 17:46:20.491" starttime="20170322 17:46:20.200"></status>
+<doc>Send request to http://httpbin.org/get with custom headers value</doc>
+<arguments>
+<arg>${HEADERS}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:32.049" starttime="20170322 19:39:31.751"></status>
 </kw>
-<kw name="Status Code Should Be" library="RequestDemoLibrary">
+<kw name="Status Code Should Be">
 <arguments>
 <arg>${STATUSCODE}</arg>
 </arguments>
-<msg timestamp="20170322 17:46:20.491" level="FAIL">Actual Status code != Expected: 200 != 200</msg>
-<status status="FAIL" endtime="20170322 17:46:20.491" starttime="20170322 17:46:20.491"></status>
-</kw>
-<status status="FAIL" endtime="20170322 17:46:20.491" starttime="20170322 17:46:20.190"></status>
-</kw>
-<status status="FAIL" endtime="20170322 17:46:20.491" critical="yes" starttime="20170322 17:46:20.190">Actual Status code != Expected: 200 != 200</status>
-</test>
-<test id="s1-t4" name="Test auth">
-<kw name="Auth and check status code">
-<arguments>
-<arg>qwe</arg>
-<arg>qwe</arg>
-<arg>200</arg>
-</arguments>
-<kw name="Request Auth" library="RequestDemoLibrary">
-<doc>Send request to http://httpbin.org/basic-auth/:user/:passwd with auth params</doc>
-<arguments>
-<arg>${name}</arg>
-<arg>${pwd}</arg>
-</arguments>
-<status status="PASS" endtime="20170322 17:46:20.795" starttime="20170322 17:46:20.491"></status>
-</kw>
 <kw name="Get Response Status Code" library="RequestDemoLibrary">
 <doc>Get response status code</doc>
 <assign>
 <var>${status}</var>
 </assign>
-<msg timestamp="20170322 17:46:20.795" level="INFO">${status} = 200</msg>
-<status status="PASS" endtime="20170322 17:46:20.795" starttime="20170322 17:46:20.795"></status>
+<msg timestamp="20170322 19:39:32.049" level="INFO">${status} = 200</msg>
+<status status="PASS" endtime="20170322 19:39:32.049" starttime="20170322 19:39:32.049"></status>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <doc>Fails if the given objects are unequal.</doc>
@@ -88,18 +129,22 @@
 <arg>${status}</arg>
 <arg>${expected_response_code}</arg>
 </arguments>
-<msg timestamp="20170322 17:46:20.795" level="INFO">Argument types are:
+<msg timestamp="20170322 19:39:32.049" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20170322 17:46:20.795" starttime="20170322 17:46:20.795"></status>
+<status status="PASS" endtime="20170322 19:39:32.049" starttime="20170322 19:39:32.049"></status>
 </kw>
-<status status="PASS" endtime="20170322 17:46:20.795" starttime="20170322 17:46:20.491"></status>
+<status status="PASS" endtime="20170322 19:39:32.049" starttime="20170322 19:39:32.049"></status>
 </kw>
+<status status="PASS" endtime="20170322 19:39:32.049" critical="yes" starttime="20170322 19:39:31.751"></status>
+</test>
+<test id="s1-t3" name="Test request auth">
 <kw name="Auth and check status code">
 <arguments>
-<arg>asd</arg>
-<arg>asd</arg>
+<arg>qwe</arg>
+<arg>qwe</arg>
 <arg>200</arg>
+<arg>True</arg>
 </arguments>
 <kw name="Request Auth" library="RequestDemoLibrary">
 <doc>Send request to http://httpbin.org/basic-auth/:user/:passwd with auth params</doc>
@@ -107,15 +152,19 @@
 <arg>${name}</arg>
 <arg>${pwd}</arg>
 </arguments>
-<status status="PASS" endtime="20170322 17:46:21.085" starttime="20170322 17:46:20.795"></status>
+<status status="PASS" endtime="20170322 19:39:32.349" starttime="20170322 19:39:32.059"></status>
 </kw>
+<kw name="Status Code Should Be">
+<arguments>
+<arg>${expected_response_code}</arg>
+</arguments>
 <kw name="Get Response Status Code" library="RequestDemoLibrary">
 <doc>Get response status code</doc>
 <assign>
 <var>${status}</var>
 </assign>
-<msg timestamp="20170322 17:46:21.085" level="INFO">${status} = 200</msg>
-<status status="PASS" endtime="20170322 17:46:21.085" starttime="20170322 17:46:21.085"></status>
+<msg timestamp="20170322 19:39:32.349" level="INFO">${status} = 200</msg>
+<status status="PASS" endtime="20170322 19:39:32.349" starttime="20170322 19:39:32.349"></status>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <doc>Fails if the given objects are unequal.</doc>
@@ -123,30 +172,277 @@
 <arg>${status}</arg>
 <arg>${expected_response_code}</arg>
 </arguments>
-<msg timestamp="20170322 17:46:21.085" level="INFO">Argument types are:
+<msg timestamp="20170322 19:39:32.349" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20170322 17:46:21.085" starttime="20170322 17:46:21.085"></status>
+<status status="PASS" endtime="20170322 19:39:32.349" starttime="20170322 19:39:32.349"></status>
 </kw>
-<status status="PASS" endtime="20170322 17:46:21.085" starttime="20170322 17:46:20.795"></status>
+<status status="PASS" endtime="20170322 19:39:32.349" starttime="20170322 19:39:32.349"></status>
 </kw>
-<status status="PASS" endtime="20170322 17:46:21.095" critical="yes" starttime="20170322 17:46:20.491"></status>
+<kw name="Get Response Authorization Status" library="RequestDemoLibrary">
+<doc>Get response authorization status value from the text of response</doc>
+<assign>
+<var>${auth_status}</var>
+</assign>
+<msg timestamp="20170322 19:39:32.349" level="INFO">${auth_status} = True</msg>
+<status status="PASS" endtime="20170322 19:39:32.349" starttime="20170322 19:39:32.349"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${auth_status}</arg>
+<arg>${auth_status}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:32.349" starttime="20170322 19:39:32.349"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:32.349" starttime="20170322 19:39:32.059"></status>
+</kw>
+<kw name="Auth and check status code">
+<arguments>
+<arg>asd</arg>
+<arg>asd</arg>
+<arg>200</arg>
+<arg>True</arg>
+</arguments>
+<kw name="Request Auth" library="RequestDemoLibrary">
+<doc>Send request to http://httpbin.org/basic-auth/:user/:passwd with auth params</doc>
+<arguments>
+<arg>${name}</arg>
+<arg>${pwd}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:32.784" starttime="20170322 19:39:32.359"></status>
+</kw>
+<kw name="Status Code Should Be">
+<arguments>
+<arg>${expected_response_code}</arg>
+</arguments>
+<kw name="Get Response Status Code" library="RequestDemoLibrary">
+<doc>Get response status code</doc>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20170322 19:39:32.784" level="INFO">${status} = 200</msg>
+<status status="PASS" endtime="20170322 19:39:32.784" starttime="20170322 19:39:32.784"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}</arg>
+<arg>${expected_response_code}</arg>
+</arguments>
+<msg timestamp="20170322 19:39:32.784" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20170322 19:39:32.784" starttime="20170322 19:39:32.784"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:32.784" starttime="20170322 19:39:32.784"></status>
+</kw>
+<kw name="Get Response Authorization Status" library="RequestDemoLibrary">
+<doc>Get response authorization status value from the text of response</doc>
+<assign>
+<var>${auth_status}</var>
+</assign>
+<msg timestamp="20170322 19:39:32.784" level="INFO">${auth_status} = True</msg>
+<status status="PASS" endtime="20170322 19:39:32.784" starttime="20170322 19:39:32.784"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${auth_status}</arg>
+<arg>${auth_status}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:32.784" starttime="20170322 19:39:32.784"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:32.784" starttime="20170322 19:39:32.349"></status>
+</kw>
+<kw name="Auth and check status code">
+<arguments>
+<arg>${EMPTY}</arg>
+<arg>pass</arg>
+<arg>404</arg>
+<arg>False</arg>
+</arguments>
+<kw name="Request Auth" library="RequestDemoLibrary">
+<doc>Send request to http://httpbin.org/basic-auth/:user/:passwd with auth params</doc>
+<arguments>
+<arg>${name}</arg>
+<arg>${pwd}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:33.074" starttime="20170322 19:39:32.784"></status>
+</kw>
+<kw name="Status Code Should Be">
+<arguments>
+<arg>${expected_response_code}</arg>
+</arguments>
+<kw name="Get Response Status Code" library="RequestDemoLibrary">
+<doc>Get response status code</doc>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20170322 19:39:33.074" level="INFO">${status} = 404</msg>
+<status status="PASS" endtime="20170322 19:39:33.074" starttime="20170322 19:39:33.074"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}</arg>
+<arg>${expected_response_code}</arg>
+</arguments>
+<msg timestamp="20170322 19:39:33.074" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20170322 19:39:33.074" starttime="20170322 19:39:33.074"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:33.074" starttime="20170322 19:39:33.074"></status>
+</kw>
+<kw name="Get Response Authorization Status" library="RequestDemoLibrary">
+<doc>Get response authorization status value from the text of response</doc>
+<assign>
+<var>${auth_status}</var>
+</assign>
+<msg timestamp="20170322 19:39:33.074" level="INFO">${auth_status} = False</msg>
+<status status="PASS" endtime="20170322 19:39:33.074" starttime="20170322 19:39:33.074"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${auth_status}</arg>
+<arg>${auth_status}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:33.074" starttime="20170322 19:39:33.074"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:33.074" starttime="20170322 19:39:32.784"></status>
+</kw>
+<kw name="Auth and check status code">
+<arguments>
+<arg>login</arg>
+<arg>${EMPTY}</arg>
+<arg>404</arg>
+<arg>False</arg>
+</arguments>
+<kw name="Request Auth" library="RequestDemoLibrary">
+<doc>Send request to http://httpbin.org/basic-auth/:user/:passwd with auth params</doc>
+<arguments>
+<arg>${name}</arg>
+<arg>${pwd}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:33.394" starttime="20170322 19:39:33.084"></status>
+</kw>
+<kw name="Status Code Should Be">
+<arguments>
+<arg>${expected_response_code}</arg>
+</arguments>
+<kw name="Get Response Status Code" library="RequestDemoLibrary">
+<doc>Get response status code</doc>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20170322 19:39:33.394" level="INFO">${status} = 404</msg>
+<status status="PASS" endtime="20170322 19:39:33.394" starttime="20170322 19:39:33.394"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}</arg>
+<arg>${expected_response_code}</arg>
+</arguments>
+<msg timestamp="20170322 19:39:33.394" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20170322 19:39:33.394" starttime="20170322 19:39:33.394"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:33.394" starttime="20170322 19:39:33.394"></status>
+</kw>
+<kw name="Get Response Authorization Status" library="RequestDemoLibrary">
+<doc>Get response authorization status value from the text of response</doc>
+<assign>
+<var>${auth_status}</var>
+</assign>
+<msg timestamp="20170322 19:39:33.394" level="INFO">${auth_status} = False</msg>
+<status status="PASS" endtime="20170322 19:39:33.394" starttime="20170322 19:39:33.394"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${auth_status}</arg>
+<arg>${auth_status}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:33.394" starttime="20170322 19:39:33.394"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:33.394" starttime="20170322 19:39:33.074"></status>
+</kw>
+<kw name="Auth and check status code">
+<arguments>
+<arg>${EMPTY}</arg>
+<arg>${EMPTY}</arg>
+<arg>404</arg>
+<arg>False</arg>
+</arguments>
+<kw name="Request Auth" library="RequestDemoLibrary">
+<doc>Send request to http://httpbin.org/basic-auth/:user/:passwd with auth params</doc>
+<arguments>
+<arg>${name}</arg>
+<arg>${pwd}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:33.714" starttime="20170322 19:39:33.394"></status>
+</kw>
+<kw name="Status Code Should Be">
+<arguments>
+<arg>${expected_response_code}</arg>
+</arguments>
+<kw name="Get Response Status Code" library="RequestDemoLibrary">
+<doc>Get response status code</doc>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20170322 19:39:33.714" level="INFO">${status} = 404</msg>
+<status status="PASS" endtime="20170322 19:39:33.714" starttime="20170322 19:39:33.714"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}</arg>
+<arg>${expected_response_code}</arg>
+</arguments>
+<msg timestamp="20170322 19:39:33.714" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20170322 19:39:33.714" starttime="20170322 19:39:33.714"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:33.714" starttime="20170322 19:39:33.714"></status>
+</kw>
+<kw name="Get Response Authorization Status" library="RequestDemoLibrary">
+<doc>Get response authorization status value from the text of response</doc>
+<assign>
+<var>${auth_status}</var>
+</assign>
+<msg timestamp="20170322 19:39:33.714" level="INFO">${auth_status} = False</msg>
+<status status="PASS" endtime="20170322 19:39:33.714" starttime="20170322 19:39:33.714"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${auth_status}</arg>
+<arg>${auth_status}</arg>
+</arguments>
+<status status="PASS" endtime="20170322 19:39:33.714" starttime="20170322 19:39:33.714"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:33.714" starttime="20170322 19:39:33.394"></status>
+</kw>
+<status status="PASS" endtime="20170322 19:39:33.714" critical="yes" starttime="20170322 19:39:32.059"></status>
 </test>
-<doc>A test suite with a single test for valid login.
-
-This test has a workflow that is created using keywords in
-the imported resource file.</doc>
-<status status="FAIL" endtime="20170322 17:46:21.095" starttime="20170322 17:46:19.110"></status>
+<doc>A test suite with a tests to assert http://httpbin.org/ servises.</doc>
+<status status="PASS" endtime="20170322 19:39:33.724" starttime="20170322 19:39:31.060"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="3" pass="1">Critical Tests</stat>
-<stat fail="3" pass="1">All Tests</stat>
+<stat fail="0" pass="3">Critical Tests</stat>
+<stat fail="0" pass="3">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat fail="3" id="s1" name="Test" pass="1">Test</stat>
+<stat fail="0" id="s1" name="Test" pass="3">Test</stat>
 </suite>
 </statistics>
 <errors>
