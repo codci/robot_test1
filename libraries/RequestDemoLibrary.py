@@ -1,13 +1,10 @@
 import requests
 from requests.auth import HTTPBasicAuth
+from settings import *
 
 
 class RequestDemoLibrary(object):
     def __init__(self):
-        self.url = "http://httpbin.org{}"
-        self.get = "/get"
-        self.auth = "/basic-auth/{}/{}"
-        self.stream = "/stream/{}"
         self.response = None
 
     def request_get(self, headers=None):
@@ -16,7 +13,7 @@ class RequestDemoLibrary(object):
         :param headers: request headers
         :return: response to request
         """
-        self.response = requests.get(self.url.format(self.get), headers=headers)
+        self.response = requests.get(url_main.format(get), headers=headers)
         return self
 
     def request_auth(self, user, passwd):
@@ -27,7 +24,7 @@ class RequestDemoLibrary(object):
         :return: response to request
         """
         base_auth = HTTPBasicAuth(user, passwd)
-        self.response = requests.get(self.url.format(self.auth.format(user, passwd)), auth=base_auth)
+        self.response = requests.get(url_main.format(auth.format(user, passwd)), auth=base_auth)
         return self
 
     def request_stream(self, count):
@@ -36,7 +33,7 @@ class RequestDemoLibrary(object):
         :param count: number of streams
         :return: response to request
         """
-        self.response = requests.get(self.url.format(self.stream.format(count)))
+        self.response = requests.get(url_main.format(stream.format(count)))
         return self
 
     def get_response_status_code(self):

@@ -1,9 +1,10 @@
 *** Settings ***
 Documentation     A test suite with a tests to assert http://httpbin.org/ servises.
 
-Library  RequestDemoLibrary.py
+Library  ../libraries/RequestDemoLibrary.py
 Library  BuiltIn
 Library  String
+Library  Collections
 Suite Setup  Initialize header dictionary
 
 *** Variables ***
@@ -18,16 +19,16 @@ Test request stream
     Number Of Lines Should Be  ${STREAMCOUNT}
 
 Test request get
-    Log  ${HEADERS}
     Request Get  ${HEADERS}
     Status Code Should Be  ${STATUSCODE}
+    Header Should Be  ${HEADERS}
 
 Test request auth
     [Template]  auth and check status code
     # name        # pwd     # expected response code     #auth status
     qwe           qwe       200                          True
     asd           asd       200                          True
-    ${EMPTY}      pass      404                          False
+    ${EMPTY}      pwd       404                          False
     login         ${EMPTY}  404                          False
     ${EMPTY}      ${EMPTY}  404                          False
 
@@ -46,7 +47,7 @@ Status Code Should Be
 Header Should Be
     [Arguments]  ${expected_header}
     ${header}  Get Response Header
-    Should Be Equal  ${header}  ${expected_header}
+    Dictionary Should Contain Sub Dictionary  ${header}  ${expected_header}
 
 Auth and check status code
     [Arguments]  ${name}  ${pwd}  ${expected_response_code}  ${auth_status}
@@ -56,5 +57,5 @@ Auth and check status code
     Should Be Equal  ${auth_status}  ${auth_status}
 
 Initialize header dictionary
-    ${HEADERS}=  Create Dictionary  test=qwe
+    ${HEADERS}=  Create Dictionary  Test=qwe
     Set Suite Variable  ${HEADERS}
